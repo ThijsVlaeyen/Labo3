@@ -1,9 +1,11 @@
 package domain.model;
 
+import java.util.concurrent.locks.ReadWriteLock;
+
 public class PartyEquipment  {
     RequestState loanAble;
     RequestState lend;
-    RequestState demaged;
+    RequestState damaged;
     RequestState removed;
 
     private double price;
@@ -15,10 +17,10 @@ public class PartyEquipment  {
     {
         this.price = price;
         this.name = name;
-        loanAble = new Lendable();
-        lend = new Lend();
-        demaged = new Damaged();
-        removed = new Removed();
+        loanAble = new Lendable(this);
+        lend = new Lend(this);
+        damaged = new Damaged(this);
+        removed = new Removed(this);
 
         state = loanAble;
     }
@@ -53,19 +55,19 @@ public class PartyEquipment  {
         state.remove();
     }
 
-    public void returnEquipment()
+    public void returnEquipment(boolean damaged)
     {
-        state.returnEquipment();
+        state.returnEquipment(damaged);
     }
 
-    public RequestState getLoan()
+    public RequestState getLend()
     {
-        return loanAble;
+        return lend;
     }
 
-    public void setLoan(RequestState state)
+    public void setLend(RequestState state)
     {
-        this.loanAble = state;
+        this.lend = state;
     }
 
     public RequestState getRemove()
@@ -78,9 +80,25 @@ public class PartyEquipment  {
         this.removed = state;
     }
 
+    public void setDamaged(RequestState damaged){
+        this.damaged = damaged;
+    }
+
+    public RequestState getDamaged(){
+        return this.damaged;
+    }
+
+    public void setLoanAble(RequestState loanable){
+        this.loanAble = loanable;
+    }
+
+    public RequestState getLoanAble(){
+        return this.loanAble;
+    }
+
     public double getFine()
     {
-        if(state == demaged) return price/3;
+        if(state == damaged) return price/3;
         return 0;
     }
 
