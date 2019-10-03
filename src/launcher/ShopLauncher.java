@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class launcher extends Application {
+public class ShopLauncher extends Application {
 
     public static void main(String[] args) {
         launch(args);
