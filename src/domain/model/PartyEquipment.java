@@ -60,27 +60,17 @@ public class PartyEquipment  {
 
     public RequestState getLoan()
     {
-
+        return loanAble;
     }
 
     public void setLoan(RequestState state)
     {
-
-    }
-
-    public RequestState getReturn()
-    {
-
-    }
-
-    public void setReturn()
-    {
-
+        this,loanAble = state;
     }
 
     public RequestState getRemove()
     {
-
+        return removed;
     }
 
     public void setRemove()
