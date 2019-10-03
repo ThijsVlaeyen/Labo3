@@ -38,24 +38,24 @@ public class PartyEquipment  {
         return state;
     }
 
-    public void load()
+    public void loan()
     {
-
+        state.loan();
     }
 
     public void repair()
     {
-
+        state.repair();
     }
 
     public void remove()
     {
-
+        state.remove();
     }
 
     public void returnEquipment()
     {
-
+        state.returnEquipment();
     }
 
     public RequestState getLoan()
@@ -65,7 +65,7 @@ public class PartyEquipment  {
 
     public void setLoan(RequestState state)
     {
-        this,loanAble = state;
+        this.loanAble = state;
     }
 
     public RequestState getRemove()
@@ -73,19 +73,9 @@ public class PartyEquipment  {
         return removed;
     }
 
-    public void setRemove()
+    public void setRemove(RequestState state)
     {
-
-    }
-
-    public RequestState getRepair()
-    {
-
-    }
-
-    public void setRepair(RequestState state)
-    {
-
+        this.removed = state;
     }
 
     public double getFine()
