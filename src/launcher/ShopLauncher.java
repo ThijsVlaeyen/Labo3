@@ -2,8 +2,12 @@ package launcher;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ui.ShopUI;
+
+import javax.swing.*;
 
 public class ShopLauncher extends Application {
 
@@ -13,16 +17,7 @@ public class ShopLauncher extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        GridPane root = new GridPane();
-
-
-
-
-
-
-
-        primaryStage.setTitle("labo 3");
-        primaryStage.setScene(new Scene(root,500,800));
-        primaryStage.show();
+        ShopUI shopUI = new ShopUI();
+        shopUI.start(primaryStage);
     }
 }

@@ -15,4 +15,9 @@ public class Damaged extends RequestState {
     public void remove(){
         this.partyEquipment.setState(this.partyEquipment.getRemove());
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + "Damaged";
+    }
 }

@@ -13,16 +13,24 @@ public class PartyEquipment  {
     public int id;
     private RequestState state;
 
-    public PartyEquipment(double price, String name)
+    public PartyEquipment(Double price, String name)
     {
-        this.price = price;
-        this.name = name;
+        if (price != null && name != null){
+            this.price = price;
+            this.name = name;
+        }else{
+            throw new IllegalArgumentException("put in a valid price and name please");
+        }
         loanAble = new Lendable(this);
         lend = new Lend(this);
         damaged = new Damaged(this);
         removed = new Removed(this);
 
         state = loanAble;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public double getPrice()
@@ -105,5 +113,10 @@ public class PartyEquipment  {
     public int getId()
     {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " €" + this.price + " " + this.state;
     }
 }

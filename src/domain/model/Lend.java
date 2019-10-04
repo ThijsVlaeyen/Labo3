@@ -14,4 +14,8 @@ public class Lend extends RequestState {
             this.partyEquipment.setState(this.partyEquipment.getLoanAble());
         }
     }
+    @Override
+    public String toString(){
+        return super.toString() + "Lend";
+    }
 }

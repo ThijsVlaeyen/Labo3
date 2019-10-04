@@ -26,4 +26,8 @@ public abstract class RequestState {
         return this.partyEquipment;
     }
 
+    @Override
+    public String toString() {
+        return "state: ";
+    }
 }

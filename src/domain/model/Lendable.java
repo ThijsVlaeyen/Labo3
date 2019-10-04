@@ -8,11 +8,16 @@ public class Lendable extends RequestState {
 
     @Override
     public void loan(){
-        this.partyEquipment.setState(this.partyEquipment.getLoan());
+        this.partyEquipment.setState(this.partyEquipment.getLend());
     }
 
     @Override
     public void remove(){
         this.partyEquipment.setState(this.partyEquipment.getRemove());
+    }
+
+    @Override
+    public String toString(){
+        return super.toString() + "Loanable";
     }
 }

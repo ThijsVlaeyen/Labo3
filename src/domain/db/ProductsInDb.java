@@ -18,7 +18,10 @@ public class ProductsInDb {
    private Map<Integer, PartyEquipment> records = new HashMap<>();
 
    public ProductsInDb(){
-      readFromFile();
+      //readFromFile();
+      add(new PartyEquipment(5.0,"balloon"));
+      add(new PartyEquipment(15.0,"firework"));
+      add(new PartyEquipment(20.0,"various items"));
    }
 
    public PartyEquipment get(int id){
@@ -58,65 +61,67 @@ public class ProductsInDb {
       if (id < 0){
          throw new DbException("No valid id given");
       }
-      records.remove(id);
+      if (records.remove(id) == null){
+         throw new DbException("this product doesn't exist");
+      }
    }
 
    public int getNumberOfProducts(){
       return records.size();
    }
 
-   @SuppressWarnings("unchecked")
-   public void readFromFile(){
-
-      JSONParser jsonParser = new JSONParser();
-
-      try (FileReader reader = new FileReader("products.json"))
-      {
-         //Read JSON file
-         Object obj = jsonParser.parse(reader);
-
-         JSONArray employeeList = (JSONArray) obj;
-         System.out.println(employeeList);
-
-         //Iterate over employee array
-         employeeList.forEach( emp -> parseEquipmentObject( (JSONObject) emp ) );
-
-      } catch (IOException | ParseException e) {
-         e.printStackTrace();
-      }
-
-   }
-
-   private static void parseEquipmentObject(JSONObject equipment){
-      JSONObject equipmentObject = (JSONObject) equipment.get("equipment");
-
-      String name = (String) equipmentObject.get("name");
-      System.out.println(name);
-
-      Double price = (Double) equipmentObject.get("price");
-      System.out.println(price);
-   }
-
-   @SuppressWarnings("unchecked")
-   public void writeToList(){
-      JSONObject equipmentDetails = new JSONObject();
-      equipmentDetails.put("name", "firework");
-      equipmentDetails.put("price", "2.0");
-
-      JSONObject equipmentObject = new JSONObject();
-      equipmentObject.put("equipment", equipmentDetails);
-
-      JSONArray equiptmentList = new JSONArray();
-      equiptmentList.add(equipmentObject);
-
-      try (FileWriter file = new FileWriter("products.json")) {
-
-         file.write(equiptmentList.toJSONString());
-         file.flush();
-
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-   }
+  // @SuppressWarnings("unchecked")
+//   public void readFromFile(){
+//
+//      JSONParser jsonParser = new JSONParser();
+//
+//      try (FileReader reader = new FileReader("products.json"))
+//      {
+//         //Read JSON file
+//         Object obj = jsonParser.parse(reader);
+//
+//         JSONArray employeeList = (JSONArray) obj;
+//         System.out.println(employeeList);
+//
+//         //Iterate over employee array
+//         employeeList.forEach( emp -> parseEquipmentObject( (JSONObject) emp ) );
+//
+//      } catch (IOException | ParseException e) {
+//         e.printStackTrace();
+//      }
+//
+//   }
+//
+//   private static void parseEquipmentObject(JSONObject equipment){
+//      JSONObject equipmentObject = (JSONObject) equipment.get("equipment");
+//
+//      String name = (String) equipmentObject.get("name");
+//      System.out.println(name);
+//
+//      Double price = (Double) equipmentObject.get("price");
+//      System.out.println(price);
+//   }
+//
+//   @SuppressWarnings("unchecked")
+//   public void writeToList(){
+//      JSONObject equipmentDetails = new JSONObject();
+//      equipmentDetails.put("name", "firework");
+//      equipmentDetails.put("price", "2.0");
+//
+//      JSONObject equipmentObject = new JSONObject();
+//      equipmentObject.put("equipment", equipmentDetails);
+//
+//      JSONArray equiptmentList = new JSONArray();
+//      equiptmentList.add(equipmentObject);
+//
+//      try (FileWriter file = new FileWriter("products.json")) {
+//
+//         file.write(equiptmentList.toJSONString());
+//         file.flush();
+//
+//      } catch (IOException e) {
+//         e.printStackTrace();
+//      }
+//   }
 
 }
