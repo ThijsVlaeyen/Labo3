@@ -59,6 +59,14 @@ public class ProductsInDb {
       }
    }
 
+   private void removeAll(){
+      for (PartyEquipment p : this.records.values()){
+         if (p.getState()==p.getRemove()){
+            delete(p.getId());
+         }
+      }
+   }
+
    public int getNumberOfProducts(){
       return records.size();
    }
