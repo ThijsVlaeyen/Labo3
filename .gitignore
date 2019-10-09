@@ -44,3 +44,5 @@ Labo1.iml
 .idea/Labo2.iml
 
 out/production/Labo3/domain/db/products.json
+
+src/domain/db/products.json

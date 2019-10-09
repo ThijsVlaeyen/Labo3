@@ -29,6 +29,22 @@ public class PartyEquipment  {
         state = loanAble;
     }
 
+    public PartyEquipment(Double price, String name, String stateString)
+    {
+        this.price = price;
+        this.name = name;
+
+        loanAble = new Lendable(this);
+        lend = new Lend(this);
+        damaged = new Damaged(this);
+        removed = new Removed(this);
+        
+        if(stateString.equals("state: loanable")) this.state = loanAble;
+        else if(stateString.equals("state: lend")) this.state = lend;
+        else if(stateString.equals("state: damaged")) this.state = damaged;
+        else if(stateString.equals("state: removed")) this.state = removed;
+    }
+
     public void setId(int id){
         this.id = id;
     }

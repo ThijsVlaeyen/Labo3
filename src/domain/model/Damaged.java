@@ -18,6 +18,6 @@ public class Damaged extends RequestState {
 
     @Override
     public String toString(){
-        return super.toString() + "Damaged";
+        return super.toString() + "damaged";
     }
 }

@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import static domain.db.ProductsInDb.writeToFile;
-
 public class ShopUI {
     public void start(Stage primaryStage){
         ProductsInDb db = new ProductsInDb();
@@ -33,7 +31,7 @@ public class ShopUI {
         returnProduct.setOnAction(new ReturnProduct(primaryStage,scene,db));
         repairProduct.setOnAction(new RepairProduct(primaryStage,scene,db));
         availableItems.setOnAction(new AvailableItems(primaryStage,scene,db));
-        exit.setOnAction(e -> {writeToFile(); primaryStage.close();});
+        exit.setOnAction(e -> {db.writeToFile(); primaryStage.close();});
         primaryStage.setScene(scene);
         primaryStage.setTitle("Shop");
         primaryStage.show();

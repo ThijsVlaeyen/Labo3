@@ -99,17 +99,21 @@ public class ProductsInDb {
 
       Double price = (Double) equipmentObject.get("price");
 
-      add(new PartyEquipment(price, name));
+      String state = (String) equipmentObject.get("state");
+
+      add(new PartyEquipment(price, name, state));
    }
 
    @SuppressWarnings("unchecked")
-   public static void writeToFile(){
+   public void writeToFile(){
+      removeAll();
       JSONArray equiptmentList = new JSONArray();
 
       for (Map.Entry<Integer, PartyEquipment> entry : records.entrySet()) {
          JSONObject equipmentDetails = new JSONObject();
          equipmentDetails.put("name", entry.getValue().name);
          equipmentDetails.put("price", entry.getValue().getPrice());
+         equipmentDetails.put("state", entry.getValue().getState().toString());
 
          JSONObject equipmentObject = new JSONObject();
          equipmentObject.put("equipment", equipmentDetails);

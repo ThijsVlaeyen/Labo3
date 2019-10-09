@@ -16,6 +16,6 @@ public class Lend extends RequestState {
     }
     @Override
     public String toString(){
-        return super.toString() + "Lend";
+        return super.toString() + "lend";
     }
 }

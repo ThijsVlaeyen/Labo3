@@ -18,6 +18,6 @@ public class Lendable extends RequestState {
 
     @Override
     public String toString(){
-        return super.toString() + "Loanable";
+        return super.toString() + "loanable";
     }
 }
