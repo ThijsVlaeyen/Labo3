@@ -8,6 +8,6 @@ public class Removed extends RequestState {
 
     @Override
     public String toString(){
-        return super.toString() + "Damaged";
+        return super.toString() + "Removed";
     }
 }

@@ -5,23 +5,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProductsInDb {
-   private Map<Integer, PartyEquipment> records = new HashMap<>();
+   private static Map<Integer, PartyEquipment> records = new HashMap<>();
 
    public ProductsInDb(){
-      //readFromFile();
-      add(new PartyEquipment(5.0,"balloon"));
-      add(new PartyEquipment(15.0,"firework"));
-      add(new PartyEquipment(20.0,"various items"));
+      readFromFile();
    }
 
    public PartyEquipment get(int id){
@@ -70,58 +63,60 @@ public class ProductsInDb {
       return records.size();
    }
 
-  // @SuppressWarnings("unchecked")
-//   public void readFromFile(){
-//
-//      JSONParser jsonParser = new JSONParser();
-//
-//      try (FileReader reader = new FileReader("products.json"))
-//      {
-//         //Read JSON file
-//         Object obj = jsonParser.parse(reader);
-//
-//         JSONArray employeeList = (JSONArray) obj;
-//         System.out.println(employeeList);
-//
-//         //Iterate over employee array
-//         employeeList.forEach( emp -> parseEquipmentObject( (JSONObject) emp ) );
-//
-//      } catch (IOException | ParseException e) {
-//         e.printStackTrace();
-//      }
-//
-//   }
-//
-//   private static void parseEquipmentObject(JSONObject equipment){
-//      JSONObject equipmentObject = (JSONObject) equipment.get("equipment");
-//
-//      String name = (String) equipmentObject.get("name");
-//      System.out.println(name);
-//
-//      Double price = (Double) equipmentObject.get("price");
-//      System.out.println(price);
-//   }
-//
-//   @SuppressWarnings("unchecked")
-//   public void writeToList(){
-//      JSONObject equipmentDetails = new JSONObject();
-//      equipmentDetails.put("name", "firework");
-//      equipmentDetails.put("price", "2.0");
-//
-//      JSONObject equipmentObject = new JSONObject();
-//      equipmentObject.put("equipment", equipmentDetails);
-//
-//      JSONArray equiptmentList = new JSONArray();
-//      equiptmentList.add(equipmentObject);
-//
-//      try (FileWriter file = new FileWriter("products.json")) {
-//
-//         file.write(equiptmentList.toJSONString());
-//         file.flush();
-//
-//      } catch (IOException e) {
-//         e.printStackTrace();
-//      }
-//   }
+   @SuppressWarnings("unchecked")
+   public void readFromFile(){
+
+      JSONParser jsonParser = new JSONParser();
+
+      try (FileReader reader = new FileReader("./src/domain/db/products.json"))
+      {
+         //Read JSON file
+         Object obj = jsonParser.parse(reader);
+
+         JSONArray productsList = (JSONArray) obj;
+
+         //Iterate over employee array
+         productsList.forEach( product -> parseEquipmentObject( (JSONObject) product ) );
+
+      } catch (IOException | ParseException e) {
+         e.printStackTrace();
+      }
+
+   }
+
+   private void parseEquipmentObject(JSONObject equipment){
+      JSONObject equipmentObject = (JSONObject) equipment.get("equipment");
+
+      String name = (String) equipmentObject.get("name");
+
+      Double price = (Double) equipmentObject.get("price");
+
+      add(new PartyEquipment(price, name));
+   }
+
+   @SuppressWarnings("unchecked")
+   public static void writeToFile(){
+      JSONArray equiptmentList = new JSONArray();
+
+      for (Map.Entry<Integer, PartyEquipment> entry : records.entrySet()) {
+         JSONObject equipmentDetails = new JSONObject();
+         equipmentDetails.put("name", entry.getValue().name);
+         equipmentDetails.put("price", entry.getValue().getPrice());
+
+         JSONObject equipmentObject = new JSONObject();
+         equipmentObject.put("equipment", equipmentDetails);
+
+         equiptmentList.add(equipmentObject);
+      }
+
+      try (FileWriter file = new FileWriter("./src/domain/db/products.json")) {
+
+         file.write(equiptmentList.toJSONString());
+         file.flush();
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 
 }

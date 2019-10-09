@@ -2,6 +2,7 @@ package ui;
 
 import domain.db.DbException;
 import domain.db.ProductsInDb;
+import domain.model.PartyEquipment;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -37,10 +38,10 @@ public class DeleteProduct implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
+        idTextField= new TextField();
         this.idTextField.setText("");
         GridPane root = new GridPane();
         Scene scene = new Scene(root,originalScene.getWidth(),originalScene.getHeight());
-        idTextField= new TextField();
         Button delete = new Button("delete");
         Button cancel = new Button("cancel");
         errorLabel = new Label();
@@ -61,9 +62,10 @@ public class DeleteProduct implements EventHandler<ActionEvent> {
         });
         delete.setOnMouseClicked(event1 -> {
             try{
-                db.delete(id);
+                PartyEquipment p = db.get(id);
+                p.remove();
                 cancel();
-            }catch (DbException e){
+            }catch (DbException | IllegalStateException e){
                 wrongInput(e.getMessage());
             }
         });
